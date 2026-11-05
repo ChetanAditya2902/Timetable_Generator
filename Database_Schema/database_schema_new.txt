@@ -85,11 +85,11 @@ VALUES
 ('BTECH','Computer Science and Engineering'),
 ('BTECH','Artificial Intelligence and Engineering'),
 ('BTECH','Electronics and Communication and Engineering'),
-('BTECH','Electrical and Computer Engineering')
+('BTECH','Electrical and Computer Engineering');
 
 INSERT INTO Course_Elective(Course_Code,Elective_Name)
 VALUES
 ('23CSE331','Professional Elective 1'),
 ('23CSE332','Professional Elective 1'),
 ('23CSE333','Professional Elective 1'),
-('23CSE334','Professional Elective 1')
+('23CSE334','Professional Elective 1');

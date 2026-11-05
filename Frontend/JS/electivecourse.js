@@ -21,7 +21,7 @@ async function StoreElectiveCoursesData() {
     console.error("Error sending data to server:", error);
   }
 }
-document.getElementById("StoreElectiveCoursesButton").addEventListener("click", StoreElectiveCoursesData);
+bindClickIfPresent("StoreElectiveCoursesButton", StoreElectiveCoursesData);
 
 // Display courses data
 async function ViewElectiveCoursesData() {
@@ -43,4 +43,4 @@ async function ViewElectiveCoursesData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewElectiveCoursesButton").addEventListener("click", ViewElectiveCoursesData);
+bindClickIfPresent("ViewElectiveCoursesButton", ViewElectiveCoursesData);

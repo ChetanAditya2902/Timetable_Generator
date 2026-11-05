@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Batch - Timetable Generator</title>
+<title>Timetable - Timetable Generator</title>
 <style>
   /* Style rules will be similar for all pages, so I'm omitting them here for brevity */
 </style>
@@ -13,7 +13,7 @@
 
 <div class="header">
   <h1>Timetable Generator</h1>
-  <p>Define the batches for scheduling.</p>
+  <p>Generate and review the schedule built from your academic data.</p>
 </div>
 
 <div class="navbar">
@@ -24,18 +24,19 @@
   <a href="batch.html">Batch</a>
   <a href="courseteacher.html">Course Teacher</a>
   <a href="semestercourses.html">Semester Courses</a>
-  <a href="timetable.html" class="active">Timetable</a>
+  <a href="timetable.html" class="active" aria-current="page">Timetable</a>
 
 </div>
 
-<div class="main">
+<main class="main">
+  <section class="form-section">
+    <h2>Your generated schedule</h2>
+    <p>Generate a fresh timetable using the courses, teachers, rooms, and batches saved in the system.</p>
+    <button type="button" onclick="generateTimetable()">Generate Timetable</button>
+  </section>
+</main>
 
-<div class="form-section">
-  <button type="button" onclick="generateTimetable()">Generate Timetable</button>
-  </div>
-</div>
-
-<div id="timetable-container"></div>
+<div id="timetable-container" aria-live="polite"></div>
 
 <div class="footer">
   <p>© 2023 Timetable Generator, Inc.</p>

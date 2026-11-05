@@ -1,93 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="styles.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timetable Generator</title>
-<style>
-</style>
-
-<style>
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  /* Ensure that all elements within the body are not wider than the body itself */
-  body * {
-    box-sizing: border-box; /* Include padding and borders in elements' total width and height */
-    max-width: 100%;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#172647">
+  <meta name="description" content="Organize courses, staff, rooms, and batches, then generate a timetable for your institution.">
+  <link rel="stylesheet" href="styles.css">
+  <title>Timetable Generator</title>
 </head>
 <body>
+  <header class="header">
+    <h1>Build a better timetable.</h1>
+    <p>Bring your courses, teachers, rooms, and student batches together in one clear workflow.</p>
+  </header>
 
-<div class="header">
-  <h1>Timetable Generator</h1>
-  <p>Create your custom timetable easily.</p>
-</div>
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="index.html" class="active" aria-current="page">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="teachers.html">Teachers</a>
+    <a href="rooms.html">Rooms</a>
+    <a href="batch.html">Batch</a>
+    <a href="courseteacher.html">Course Teacher</a>
+    <a href="semestercourses.html">Semester Courses</a>
+    <a href="timetable.html">Timetable</a>
+  </nav>
 
-<div class="navbar">
-  <a href="index.html">Home</a>
-  <a href="courses.html">Courses</a>
-  <a href="teachers.html">Teachers</a>
-  <a href="rooms.html">Rooms</a>
-  <a href="batch.html">Batch</a>
-  <a href="courseteacher.html">Course Teacher</a>
-  <a href="semestercourses.html">Semester Courses</a>
-  <a href="timetable.html">Timetable</a>
-</div>
+  <main>
+    <section class="welcome-message">
+      <p>Start by entering your academic data or importing it from CSV. Once the information is in place, generate a timetable and review the schedule in one place.</p>
+    </section>
 
-<!-- Welcome Message Enhanced -->
-<div class="welcome-message">
-  <p>Welcome to the Timetable Generator - your one-stop solution for creating personalized timetables with ease. Our tool is designed to simplify the process of organizing courses, rooms, and teacher schedules. Get started today and see how easy managing your time can be!</p>
-</div>
+    <section class="features-list">
+      <h2>Everything in one workflow</h2>
+      <ul>
+        <li>Manage courses and semester offerings</li>
+        <li>Keep teacher and course assignments together</li>
+        <li>Organize available rooms and student batches</li>
+        <li>Generate a timetable from your saved data</li>
+      </ul>
+    </section>
 
-<!-- Features List -->
-<div class="features-list">
-  <h2>Key Features</h2>
-  <ul>
-    <li>User-friendly interface</li>
-    <li>Customizable timetable slots</li>
-    <li>Support for multiple course schedules</li>
-    <li>Automated conflict resolution</li>
-    <li>Printable and exportable timetables</li>
-  </ul>
-</div>
+    <section class="instructions">
+      <h2>Get started in three steps</h2>
+      <ol>
+        <li>Add courses, teachers, rooms, and batches.</li>
+        <li>Connect courses with teachers and semesters.</li>
+        <li>Open Timetable and select Generate Timetable.</li>
+      </ol>
+    </section>
 
-<!-- Instructions -->
-<div class="instructions">
-  <h2>How to Use</h2>
-  <p>Creating your timetable is as simple as 1-2-3:</p>
-  <ol>
-    <li>Enter your courses, rooms, and teacher details in the respective sections.</li>
-    <li>Use our intuitive drag-and-drop interface to assign time slots.</li>
-    <li>Review and adjust your timetable, then print or export it for your convenience.</li>
-  </ol>
-</div>
+    <section class="about-section">
+      <h2>Designed for academic planning</h2>
+      <p>Use the sections above to maintain the information used by your timetable. You can enter records individually or upload CSV files on the relevant pages.</p>
+    </section>
+  </main>
 
-<!-- About Section -->
-<div class="about-section">
-  <h2>About Timetable Generator</h2>
-  <p>The Timetable Generator was developed with educational institutions in mind, aiming to streamline the complex task of timetable management. Whether you're a school administrator, a college coordinator, or a teacher planning your weekly schedule, our tool is tailored to meet your needs.</p>
-</div>
-
-<!-- Contact Information -->
-<div class="contact-info">
-  <h2>Contact Us</h2>
-  <p>Have questions or need support? Get in touch with us at <a href="mailto:email@email.com">email@email.com</a>. We're here to help you make the most of your time!</p>
-</div>
-
-
-<div class="main">
-  <!-- Content specific to each page will go here -->
-</div>
-
-<div class="footer">
-  <p>© 2023 Timetable Generator, Inc.</p>
-</div>
-
-<!-- JavaScript can be added here if necessary -->
-
+  <footer class="footer">
+    <p>Timetable Generator</p>
+  </footer>
 </body>
 </html>

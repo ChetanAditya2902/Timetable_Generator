@@ -1,6 +1,7 @@
 import psycopg2
 import psycopg2.extras
-conn = psycopg2.connect("dbname=Timetable user=postgres password=aditya!2902")
+from db_config import get_db_config
+conn = psycopg2.connect(**get_db_config())
 
 
 def get_courses():
@@ -118,7 +119,7 @@ dfsemester_course = get_semester_course()
 
 def Send_BatchCourseClassroom(batch, room, session, course, teacher, slot):
     try:
-        conn = psycopg2.connect("dbname=Timetable user=postgres password=aditya!2902")
+        conn = psycopg2.connect(**get_db_config())
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         Batch_Name = batch[2:]
@@ -152,18 +153,25 @@ dfbatch_course_classroom = get_batch_course_classroom()
 def get_timetable():
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute("SELECT distinct(semester, batch) FROM timetable")
-        rows = cur.fetchall()
+        cur.execute("SELECT DISTINCT semester, batch FROM timetable")
+        batches = cur.fetchall()
         timetable = []
-        for row in rows:
+        for semester, batch in batches:
             tables = {}
-            (semester, batch) = row[0].split(',')
-            str = f"SELECT day, slot_0, slot_1, slot_2, slot_3, slot_4, slot_5, slot_6, slot_7, slot_8, slot_9 FROM timetable WHERE semester ='{semester[1:]}' AND batch = '{batch[:-1]}'"
-            cur.execute(str)
+            cur.execute(
+                """SELECT day, slot_0, slot_1, slot_2, slot_3, slot_4,
+                          slot_5, slot_6, slot_7, slot_8, slot_9
+                   FROM timetable WHERE semester = %s AND batch = %s
+                   ORDER BY CASE day
+                     WHEN 'Monday' THEN 1 WHEN 'Tuesday' THEN 2
+                     WHEN 'Wednesday' THEN 3 WHEN 'Thursday' THEN 4
+                     WHEN 'Friday' THEN 5 ELSE 6 END""",
+                (semester, batch),
+            )
             rows1 = cur.fetchall()
             tables['data'] = rows1
-            tables['semester'] = semester[1:]
-            tables['batch'] = batch[:-1]
+            tables['semester'] = semester
+            tables['batch'] = batch
             timetable.append(tables)
         return timetable
     except psycopg2.Error as e:

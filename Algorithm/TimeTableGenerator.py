@@ -4,6 +4,7 @@ import psycopg2
 from tabulate import tabulate
 
 from Data import dfcourses, dfelectivecourses
+from db_config import get_db_config
 from LabAllocation import timetable, labtimetable
 
 table = [
@@ -174,8 +175,9 @@ def alternativeslots(alternative_slots):
 
 alternativeslots(alternative_slots)
 
-db_connection = psycopg2.connect(host='localhost', user='postgres', password='aditya!2902', dbname='Timetable')
+db_connection = psycopg2.connect(**get_db_config())
 cursor = db_connection.cursor()
+cursor.execute("DELETE FROM timetable")
 
 print(timetable)
 for semester, batches in timetable.items():
@@ -252,8 +254,6 @@ for semester, batches in timetable.items():
                         FNLAB_ANLEC_copy[i].insert(0, days[i])
                     print(tabulate(FNLAB_ANLEC_copy, headers=[f'{batch}/{room}/{session}'] + headers))
                     FNLAB_ANLEC_copy = copy.deepcopy(FNLAB_ANLEC)
-
-db_connection.commit()
 
 print(labtimetable)
 fn_allocate_lab_rooms = {}
@@ -575,7 +575,6 @@ print(teachers_timetable)
 #
 # alternativeslots(alternative_slots)
 #
-# db_connection = psycopg2.connect(host='localhost', user='postgres', password='aditya!2902', dbname='Timetable')
 # cursor = db_connection.cursor()
 #
 # print(timetable)

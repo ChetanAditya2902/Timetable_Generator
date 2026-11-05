@@ -1,32 +1,13 @@
 // JavaScript to handle file input and display CSV content
 
 async function StoreTeachersData() {
-  try {
-    const response = await fetch("http://localhost:3005/InsertTeachersData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonArray),
-    });
-    if (response.ok) {
-      console.log("Data sent to server successfully.");
-    } else {
-      console.error(
-        "Error sending data to server:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error sending data to server:", error);
-  }
+  await storeUploadedCsv("/InsertTeachersData", "StoreTeachersButton");
 }
-document.getElementById("StoreTeachersButton").addEventListener("click", StoreTeachersData);
+bindClickIfPresent("StoreTeachersButton", StoreTeachersData);
 
 async function ViewTeachersData() {
     try {
-        const response = await fetch("http://localhost:3005/ViewTeachersData");
+        const response = await fetch(`${API_BASE_URL}/ViewTeachersData`);
         const data = await response.json();
 
         if (response.ok) {
@@ -43,14 +24,19 @@ async function ViewTeachersData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewTeachersButton").addEventListener("click", ViewTeachersData);
+bindClickIfPresent("ViewTeachersButton", ViewTeachersData);
+
+function clearInputFields() {
+    document.getElementById("teacherId").value = "";
+    document.getElementById("teacherName").value = "";
+}
 
 async function addTeacher() {
     try {
         const teacherId = document.getElementById("teacherId").value;
         const teacherName = document.getElementById("teacherName").value;
 
-        const response = await fetch("http://localhost:3005/addTeacher", {
+        const response = await fetch(`${API_BASE_URL}/addTeacher`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -77,7 +63,7 @@ async function updateTeacher() {
         const teacherId = document.getElementById("teacherId").value;
         const teacherName = document.getElementById("teacherName").value;
 
-        const response = await fetch("http://localhost:3005/updateTeacher", {
+        const response = await fetch(`${API_BASE_URL}/updateTeacher`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -103,7 +89,7 @@ async function deleteTeacher() {
     try {
         const teacherId = document.getElementById("teacherId").value;
 
-        const response = await fetch("http://localhost:3005/deleteTeacher", {
+        const response = await fetch(`${API_BASE_URL}/deleteTeacher`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

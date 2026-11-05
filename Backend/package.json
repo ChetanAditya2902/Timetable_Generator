@@ -5,19 +5,17 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.19.2",
     "pg": "^8.11.5",
-    "pg-promise": "^11.5.4",
-    "tabulate": "^1.0.0"
+    "pg-promise": "^11.5.4"
   }
 }

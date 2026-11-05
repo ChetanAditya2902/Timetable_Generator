@@ -1,32 +1,12 @@
 async function StoreCourseTeacherData() {
-  try {
-    const response = await fetch("http://localhost:3005/InsertCourseTeacherData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonArray),
-    });
-
-    if (response.ok) {
-      console.log("Data sent to server successfully.");
-    } else {
-      console.error(
-        "Error sending data to server:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error sending data to server:", error);
-  }
+  await storeUploadedCsv("/InsertCourseTeacherData", "StoreCourseTeacherButton");
 }
-document.getElementById("StoreCourseTeacherButton").addEventListener("click", StoreCourseTeacherData);
+bindClickIfPresent("StoreCourseTeacherButton", StoreCourseTeacherData);
 
 // Display courses data
 async function ViewCourseTeacherData() {
     try {
-        const response = await fetch("http://localhost:3005/ViewCourseTeacherData");
+        const response = await fetch(`${API_BASE_URL}/ViewCourseTeacherData`);
         const data = await response.json();
 
         if (response.ok) {
@@ -43,7 +23,7 @@ async function ViewCourseTeacherData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewCourseTeacherButton").addEventListener("click", ViewCourseTeacherData);
+bindClickIfPresent("ViewCourseTeacherButton", ViewCourseTeacherData);
 
 // Add  courses data
 async function addCourseTeacher() {
@@ -51,7 +31,7 @@ async function addCourseTeacher() {
         const CourseCode = document.getElementById("CourseCode").value;
         const TeacherID = document.getElementById("TeacherID").value;
 
-        const response = await fetch("http://localhost:3005/addCourseTeacher", {
+        const response = await fetch(`${API_BASE_URL}/addCourseTeacher`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -82,7 +62,7 @@ async function deleteCourseTeacher() {
         const CourseCode = document.getElementById("CourseCode").value;
         const TeacherID = document.getElementById("TeacherID").value;
 
-        const response = await fetch("http://localhost:3005/deleteCourseTeacher", {
+        const response = await fetch(`${API_BASE_URL}/deleteCourseTeacher`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

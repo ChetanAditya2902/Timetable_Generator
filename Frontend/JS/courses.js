@@ -1,34 +1,14 @@
 // JavaScript to handle file input and display CSV content
 
 async function StoreCoursesData() {
-  try {
-    const response = await fetch("http://localhost:3005/InsertCoursesData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonArray),
-    });
-
-    if (response.ok) {
-      console.log("Data sent to server successfully.");
-    } else {
-      console.error(
-        "Error sending data to server:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error sending data to server:", error);
-  }
+  await storeUploadedCsv("/InsertCoursesData", "StoreCoursesButton");
 }
-document.getElementById("StoreCoursesButton").addEventListener("click", StoreCoursesData);
+bindClickIfPresent("StoreCoursesButton", StoreCoursesData);
 
 // Display courses data
 async function ViewCoursesData() {
     try {
-        const response = await fetch("http://localhost:3005/ViewCoursesData");
+        const response = await fetch(`${API_BASE_URL}/ViewCoursesData`);
         const data = await response.json();
 
         if (response.ok) {
@@ -45,7 +25,7 @@ async function ViewCoursesData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewCoursesButton").addEventListener("click", ViewCoursesData);
+bindClickIfPresent("ViewCoursesButton", ViewCoursesData);
 
 function clearInputFields() {
     document.getElementById("category").value = "";
@@ -67,7 +47,7 @@ async function addCourse() {
         const tutorialHours = parseInt(document.getElementById("tutorialHours").value);
         const practicalHours = parseInt(document.getElementById("practicalHours").value);
 
-        const response = await fetch("http://localhost:3005/addCourse", {
+        const response = await fetch(`${API_BASE_URL}/addCourse`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -105,7 +85,7 @@ async function updateCourse() {
         const tutorialHours = parseInt(document.getElementById("tutorialHours").value);
         const practicalHours = parseInt(document.getElementById("practicalHours").value);
 
-        const response = await fetch("http://localhost:3005/updateCourse", {
+        const response = await fetch(`${API_BASE_URL}/updateCourse`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -135,7 +115,7 @@ async function updateCourse() {
 async function deleteCourse() {
     const code = document.getElementById("code").value;
     try {
-        const response = await fetch('http://localhost:3005/deleteCourse', {
+        const response = await fetch(`${API_BASE_URL}/deleteCourse`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

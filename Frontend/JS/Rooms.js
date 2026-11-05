@@ -1,30 +1,11 @@
 async function StoreRoomsData() {
-  try {
-    const response = await fetch("http://localhost:3005/InsertRoomsData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonArray),
-    });
-    if (response.ok) {
-      console.log("Data sent to server successfully.");
-    } else {
-      console.error(
-        "Error sending data to server:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error sending data to server:", error);
-  }
+  await storeUploadedCsv("/InsertRoomsData", "StoreRoomsButton");
 }
-document.getElementById("StoreRoomsButton").addEventListener("click", StoreRoomsData);
+bindClickIfPresent("StoreRoomsButton", StoreRoomsData);
 
 async function ViewRoomsData() {
     try {
-        const response = await fetch("http://localhost:3005/ViewRoomsData");
+        const response = await fetch(`${API_BASE_URL}/ViewRoomsData`);
         const data = await response.json();
 
         if (response.ok) {
@@ -41,14 +22,14 @@ async function ViewRoomsData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewRoomsButton").addEventListener("click", ViewRoomsData);
+bindClickIfPresent("ViewRoomsButton", ViewRoomsData);
 
 async function addRooms() {
     try {
         const roomNo = document.getElementById("roomNo").value;
         const roomCapacity = document.getElementById("roomCapacity").value;
 
-        const response = await fetch("http://localhost:3005/addRoom", {
+        const response = await fetch(`${API_BASE_URL}/addRoom`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +59,7 @@ async function updateRooms() {
         const roomNo = document.getElementById("roomNo").value;
         const roomCapacity = document.getElementById("roomCapacity").value;
 
-        const response = await fetch("http://localhost:3005/updateRoom", {
+        const response = await fetch(`${API_BASE_URL}/updateRoom`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -107,7 +88,7 @@ async function deleteRooms() {
     try {
         const roomNo = document.getElementById("roomNo").value;
 
-        const response = await fetch("http://localhost:3005/deleteRoom", {
+        const response = await fetch(`${API_BASE_URL}/deleteRoom`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

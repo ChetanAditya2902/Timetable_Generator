@@ -1,31 +1,11 @@
 async function StoreCBatchData() {
-  try {
-    const response = await fetch("http://localhost:3005/InsertBatchData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonArray),
-    });
-
-    if (response.ok) {
-      console.log("Data sent to server successfully.");
-    } else {
-      console.error(
-        "Error sending data to server:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error sending data to server:", error);
-  }
+  await storeUploadedCsv("/InsertBatchData", "StoreBatchButton");
 }
-document.getElementById("StoreBatchButton").addEventListener("click", StoreCBatchData);
+bindClickIfPresent("StoreBatchButton", StoreCBatchData);
 
 async function ViewBatchData() {
     try {
-        const response = await fetch("http://localhost:3005/ViewBatchData");
+        const response = await fetch(`${API_BASE_URL}/ViewBatchData`);
         const data = await response.json();
 
         if (response.ok) {
@@ -42,7 +22,7 @@ async function ViewBatchData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewBatchButton").addEventListener("click", ViewBatchData);
+bindClickIfPresent("ViewBatchButton", ViewBatchData);
 
 async function addBatch() {
     try {
@@ -51,7 +31,7 @@ async function addBatch() {
         const branchName = document.getElementById("branchName").value;
         const batchSize = document.getElementById("batchSize").value;
 
-        const response = await fetch("http://localhost:3005/addBatch", {
+        const response = await fetch(`${API_BASE_URL}/addBatch`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -85,7 +65,7 @@ async function updateBatch() {
         const branchName = document.getElementById("branchName").value;
         const batchSize = document.getElementById("batchSize").value;
 
-        const response = await fetch("http://localhost:3005/updateBatch", {
+        const response = await fetch(`${API_BASE_URL}/updateBatch`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -117,7 +97,7 @@ async function deleteBatch() {
         const Semester = document.getElementById("Semester").value;
         const batchName = document.getElementById("batchName").value;
 
-        const response = await fetch("http://localhost:3005/deleteBatch", {
+        const response = await fetch(`${API_BASE_URL}/deleteBatch`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

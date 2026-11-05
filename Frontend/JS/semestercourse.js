@@ -1,35 +1,12 @@
 async function StoreSemesterCoursesData() {
-  try {
-    const response = await fetch("http://localhost:3005/InsertSemesterCoursesData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonArray),
-    });
-
-    if (response.ok) {
-      console.log("Data sent to server successfully.");
-    } else {
-      console.error(
-        "Error sending data to server:",
-        response.status,
-        response.statusText
-      );
-    }
-  } catch (error) {
-    console.error("Error sending data to server:", error);
-  }
+  await storeUploadedCsv("/InsertSemesterCoursesData", "StoreSemesterCoursesButton");
 }
-document.getElementById("StoreSemesterCoursesButton").addEventListener("click", StoreSemesterCoursesData);
+bindClickIfPresent("StoreSemesterCoursesButton", StoreSemesterCoursesData);
 
 // Display courses data
 async function ViewSemesterCoursesData() {
     try {
-        const Semester = document.getElementById("Semester").value;
-        const BranchName = document.getElementById("BranchName").value;
-        const CourseCode = document.getElementById("CourseCode").value;
-        const response = await fetch("http://localhost:3005/ViewSemesterCoursesData");
+        const response = await fetch(`${API_BASE_URL}/ViewSemesterCoursesData`);
         const data = await response.json();
 
         if (response.ok) {
@@ -46,4 +23,68 @@ async function ViewSemesterCoursesData() {
         console.error("Error receiving data from server:", error);
     }
 }
-document.getElementById("ViewSemesterCoursesButton").addEventListener("click", ViewSemesterCoursesData);
+bindClickIfPresent("ViewSemesterCoursesButton", ViewSemesterCoursesData);
+
+function getSemesterCourseValues() {
+    return {
+        semester: document.getElementById("semester").value.trim(),
+        branchName: document.getElementById("branchname").value.trim(),
+        courseCode: document.getElementById("code").value.trim(),
+    };
+}
+
+async function saveSemesterCourse(path, method, values) {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+    });
+
+    if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || `Request failed (${response.status}).`);
+    }
+}
+
+async function addSemesterCourse() {
+    try {
+        const values = getSemesterCourseValues();
+        if (Object.values(values).some((value) => !value)) {
+            throw new Error("Enter a semester, branch, and course code.");
+        }
+        await saveSemesterCourse("/addSemesterCourse", "POST", values);
+        await ViewSemesterCoursesData();
+    } catch (error) {
+        console.error("Error adding semester course:", error);
+        alert(error.message);
+    }
+}
+
+async function updateSemesterCourse() {
+    try {
+        const values = getSemesterCourseValues();
+        const previousCourseCode = document.getElementById("previousCourseCode").value.trim();
+        if (Object.values(values).some((value) => !value) || !previousCourseCode) {
+            throw new Error("Enter the semester, branch, current course code, and replacement course code.");
+        }
+        await saveSemesterCourse("/updateSemesterCourse", "PUT", { ...values, previousCourseCode });
+        await ViewSemesterCoursesData();
+    } catch (error) {
+        console.error("Error updating semester course:", error);
+        alert(error.message);
+    }
+}
+
+async function deleteSemesterCourse() {
+    try {
+        const values = getSemesterCourseValues();
+        if (Object.values(values).some((value) => !value)) {
+            throw new Error("Enter a semester, branch, and course code.");
+        }
+        await saveSemesterCourse("/deleteSemesterCourse", "DELETE", values);
+        await ViewSemesterCoursesData();
+    } catch (error) {
+        console.error("Error deleting semester course:", error);
+        alert(error.message);
+    }
+}

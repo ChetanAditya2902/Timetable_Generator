@@ -1,7 +1,11 @@
-from Data import Send_BatchCourseClassroom, dfelectivecourses
+from Data import Send_BatchCourseClassroom, conn, dfelectivecourses
 from RoomAllocation import room_batch
 from SlotAllocation import Branch_course_teacher_slot
 from TeacherAllocation import Allocated_Batch_Course_Teacher
+
+with conn:
+    with conn.cursor() as cursor:
+        cursor.execute("DELETE FROM BatchCourseClassroom")
 
 filled_slots = {}
 

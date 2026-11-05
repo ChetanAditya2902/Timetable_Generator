@@ -99,7 +99,6 @@ course_lecture_hours = {}
 #    course_lecture_hours[course_detail['course_code']] = course_detail['lecture_hours'] + course_detail[
 #        'tutorial_hours']
 
-# db_connection = psycopg2.connect(host='localhost', user='postgres', password='aditya!2902', dbname='Timetable')
 # cursor = db_connection.cursor()
 
 from TimeTableGenerator import teachers_timetable as timetable

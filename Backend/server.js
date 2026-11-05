@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import pgPromise from "pg-promise";
 import cors from "cors";
+import "dotenv/config";
 import path from "path";
 import { spawn } from 'child_process';
 
@@ -15,16 +16,13 @@ app.use(cors());
 
 // Define the PostgreSQL database configuration
 const pgp = pgPromise();
-
-const pgpConfig = {
-  host: "localhost",
-  port: 5432, // Default PostgreSQL port
-  database: "Timetable",
-  user: "postgres",
-  password: "aditya!2902",
-};
-
-const db = pgp(pgpConfig);
+const db = pgp({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+});
 
 function cleanObject(obj) {
   const cleanedObj = {};

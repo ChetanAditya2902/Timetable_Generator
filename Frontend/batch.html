@@ -33,15 +33,19 @@
 
 <div class="form-section">
   <h2>Upload Batch via CSV</h2>
-  <div class="file-input-container">
-    <button class="file-input-button" type="button">Choose File</button>
-    <input type="file" id="batchCSV" accept=".csv" required style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;">
+  <div class="file-upload-panel">
+    <input class="csv-file-input" type="file" id="batchCSV" accept=".csv,text/csv" multiple data-store-buttons="StoreBatchButton">
+    <label class="file-drop-zone" for="batchCSV">
+      <span class="file-drop-icon" aria-hidden="true">CSV</span>
+      <span><strong>Choose batch CSV files</strong><small>Select one or more files, or drop them here</small></span>
+    </label>
+    <div id="batchCSVSelection" class="selected-files" aria-live="polite"></div>
   </div>
-  <button type="button" onclick="convertCSVtoJSON('batchCSV', 'UploadBatchTable', ['StoreBatchButton'])">Upload and Display CSV</button>
-  <div id="UploadBatchTable" class="csv-display-table">
+  <button type="button" onclick="convertCSVtoJSON('batchCSV', 'UploadBatchTable', ['StoreBatchButton'])">Preview selected files</button>
+  <div id="UploadBatchTable" class="csv-display-table" aria-live="polite">
     <!-- The uploaded CSV content will be displayed here in a table -->
   </div>
-<button type="button" id="StoreBatchButton" style="display: none;">Store Data</button>
+<button type="button" id="StoreBatchButton" hidden>Store all selected rows</button>
 </div>
 
 <!-- Batch Page Form Section -->

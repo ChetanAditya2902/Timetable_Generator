@@ -260,43 +260,150 @@ button.delete-button:hover {
   background: #ad3544;
 }
 
-button.update-button,
-button.file-input-button {
+button.update-button {
   color: #324fc4;
   border-color: #d8e0ff;
   background: #f1f4ff;
 }
 
-button.update-button:hover,
-button.file-input-button:hover {
+button.update-button:hover {
   color: #233eaa;
   background: #e5eaff;
   box-shadow: none;
 }
 
-.file-input-container {
-  position: relative;
-  display: inline-flex;
-  max-width: 100%;
-  margin: 0.25rem 0 0.5rem;
-  overflow: hidden;
-  vertical-align: middle;
+.file-upload-panel {
+  margin: 0.5rem 0 1rem;
 }
 
-.file-input-container input[type="file"] {
+input.csv-file-input {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
   margin: 0;
+  padding: 0;
+  border: 0;
   opacity: 0;
-  cursor: pointer;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.file-input-container:focus-within {
-  outline: 3px solid rgb(54 89 217 / 30%);
-  outline-offset: 2px;
-  border-radius: 0.65rem;
+.file-drop-zone {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 7rem;
+  padding: 1.15rem;
+  border: 1.5px dashed #b9c7e4;
+  border-radius: 0.85rem;
+  color: #35435c;
+  background: linear-gradient(135deg, #f8faff, #f1f5ff);
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.file-drop-zone:hover,
+.file-drop-zone.is-dragover {
+  border-color: var(--primary);
+  background: #edf2ff;
+}
+
+.csv-file-input:focus-visible + .file-drop-zone {
+  outline: 3px solid rgb(54 89 217 / 35%);
+  outline-offset: 3px;
+}
+
+.file-drop-icon {
+  display: grid;
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border-radius: 0.8rem;
+  color: var(--primary-dark);
+  background: #e2eaff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.file-drop-zone strong,
+.file-drop-zone small {
+  display: block;
+}
+
+.file-drop-zone small {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.selected-files {
+  margin-top: 0.75rem;
+}
+
+.selected-file-list {
+  display: grid;
+  gap: 0.4rem;
+  max-height: 10rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.selected-file-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #e8edf5;
+  border-radius: 0.6rem;
+  background: #fff;
+  font-size: 0.84rem;
+}
+
+.selected-file-name {
+  overflow: hidden;
+  color: #35435c;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selected-file-list small {
+  flex: 0 0 auto;
+  color: var(--muted);
+}
+
+.file-selection-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #43536e;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+button.clear-files-button {
+  min-height: 0;
+  margin: 0;
+  padding: 0.2rem 0.35rem;
+  border: 0;
+  color: var(--primary-dark);
+  background: transparent;
+  font-size: 0.82rem;
+}
+
+button.clear-files-button:hover {
+  background: #edf2ff;
+  box-shadow: none;
+  transform: none;
 }
 
 .csv-display-table {
@@ -350,6 +457,33 @@ button.file-input-button:hover {
 .csv-display-table p {
   margin: 0;
   padding: 1rem;
+}
+
+.preview-summary {
+  color: #35435c;
+  font-weight: 700;
+}
+
+.csv-file-preview {
+  margin: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #e8edf5;
+  border-radius: 0.7rem;
+}
+
+.csv-file-preview h3 {
+  margin: 0;
+  padding: 0.75rem 0.9rem 0;
+  font-size: 0.95rem;
+}
+
+.csv-file-preview > p {
+  padding: 0.15rem 0.9rem 0.6rem;
+  font-size: 0.82rem;
+}
+
+.csv-file-preview table {
+  min-width: 100%;
 }
 
 p[data-state="success"] {
@@ -414,6 +548,34 @@ p[data-state="error"] {
   min-height: 1px;
   margin: 0 auto 3rem;
   overflow-x: auto;
+}
+
+.timetable-main {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.timetable-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+button.secondary-button {
+  color: #324fc4;
+  border-color: #d8e0ff;
+  background: #f1f4ff;
+}
+
+button.secondary-button:hover {
+  color: #233eaa;
+  background: #e5eaff;
+  box-shadow: none;
+}
+
+#timetable-status {
+  min-height: 1.5rem;
+  margin-bottom: 0;
 }
 
 #timetable-container table {

@@ -33,15 +33,19 @@
 
 <div class="form-section">
   <h2>Upload Rooms via CSV</h2>
-  <div class="file-input-container">
-    <button class="file-input-button" type="button">Choose File</button>
-    <input type="file" id="RoomsCSV" accept=".csv" required style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;">
+  <div class="file-upload-panel">
+    <input class="csv-file-input" type="file" id="RoomsCSV" accept=".csv,text/csv" multiple data-store-buttons="StoreRoomsButton">
+    <label class="file-drop-zone" for="RoomsCSV">
+      <span class="file-drop-icon" aria-hidden="true">CSV</span>
+      <span><strong>Choose room CSV files</strong><small>Select one or more files, or drop them here</small></span>
+    </label>
+    <div id="RoomsCSVSelection" class="selected-files" aria-live="polite"></div>
   </div>
-  <button type="button" onclick="convertCSVtoJSON('RoomsCSV', 'UploadRoomsTable', ['StoreRoomsButton'])">Upload and Display CSV</button>
-  <div id="UploadRoomsTable" class="csv-display-table">
+  <button type="button" onclick="convertCSVtoJSON('RoomsCSV', 'UploadRoomsTable', ['StoreRoomsButton'])">Preview selected files</button>
+  <div id="UploadRoomsTable" class="csv-display-table" aria-live="polite">
     <!-- The uploaded CSV content will be displayed here in a table -->
   </div>
-  <button type="button" id="StoreRoomsButton" style="display: none;">Store Data</button>
+  <button type="button" id="StoreRoomsButton" hidden>Store all selected rows</button>
 </div>
 
 <div class="form-section">

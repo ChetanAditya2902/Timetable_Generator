@@ -28,15 +28,18 @@
 
 </div>
 
-<main class="main">
+<main class="main timetable-main">
   <section class="form-section">
     <h2>Your generated schedule</h2>
-    <p>Generate a fresh timetable using the courses, teachers, rooms, and batches saved in the system.</p>
-    <button type="button" onclick="generateTimetable()">Generate Timetable</button>
+    <p>Generate a fresh schedule, review each batch, and export all timetable tables as a CSV file.</p>
+    <div class="timetable-actions">
+      <button type="button" id="GenerateTimetableButton" onclick="generateTimetable()">Generate Timetable</button>
+      <button type="button" id="ExportTimetableButton" class="secondary-button" onclick="exportTimetableCsv()" hidden disabled>Export timetable CSV</button>
+    </div>
+    <p id="timetable-status" role="status" aria-live="polite"></p>
   </section>
+  <div id="timetable-container" aria-live="polite"></div>
 </main>
-
-<div id="timetable-container" aria-live="polite"></div>
 
 <div class="footer">
   <p>© 2023 Timetable Generator, Inc.</p>

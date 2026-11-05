@@ -31,15 +31,19 @@
 
 <div class="form-section">
   <h2>Upload Courses via CSV</h2>
-  <div class="file-input-container">
-    <button class="file-input-button" type="button" onclick="document.getElementById('coursesCSV').click()">Choose File</button>
-    <input type="file" id="coursesCSV" accept=".csv" required style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; cursor: pointer;">
+  <div class="file-upload-panel">
+    <input class="csv-file-input" type="file" id="coursesCSV" accept=".csv,text/csv" multiple data-store-buttons="StoreCoursesButton">
+    <label class="file-drop-zone" for="coursesCSV">
+      <span class="file-drop-icon" aria-hidden="true">CSV</span>
+      <span><strong>Choose course CSV files</strong><small>Select one or more files, or drop them here</small></span>
+    </label>
+    <div id="coursesCSVSelection" class="selected-files" aria-live="polite"></div>
   </div>
-  <button type="button" onclick="convertCSVtoJSON('coursesCSV', 'UploadCoursesTable' , ['StoreCoursesButton'])">Upload and Display CSV</button>
-  <div id="UploadCoursesTable" class="csv-display-table">
+  <button type="button" onclick="convertCSVtoJSON('coursesCSV', 'UploadCoursesTable', ['StoreCoursesButton'])">Preview selected files</button>
+  <div id="UploadCoursesTable" class="csv-display-table" aria-live="polite">
     <!-- The uploaded CSV content will be displayed here in a table -->
   </div>
-  <button type="button" id="StoreCoursesButton" style="display: none;">Store Data</button>
+  <button type="button" id="StoreCoursesButton" hidden>Store all selected rows</button>
 </div>
 
 <div class="form-section">

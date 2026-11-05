@@ -47,6 +47,8 @@ Check database connectivity at [http://localhost:3005/api/health](http://localho
 
 CSV uploads merge into existing data: records with matching course codes, teacher IDs, room numbers, or semester/batch keys are updated; new records are inserted. Course-teacher and semester-course relationships are added only if not already present. A failed upload is rolled back as a whole.
 
+Each data page accepts multiple CSV files of the same data type in one upload. Preview the selected files before saving; the preview shows each filename and row count, and limits the table preview to 20 rows per file. On the Timetable page, generate the schedule and select **Export timetable CSV** to download all displayed schedules in one CSV file.
+
 Course CSVs can use either `Category,Course_Code,Course_Name,Elective_Name,L,T,P` or the database-style hour headers `Lecture_Hours,Tutorial_Hours,Practical_Hours`. Elective names are stored in the separate `Course_Elective` table.
 
 ## Generate a timetable
